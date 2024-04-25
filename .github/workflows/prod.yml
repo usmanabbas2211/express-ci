@@ -6,10 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ "master" ]
-defaults:
-  run:
-    working-directory: /var/www/staging
-
 jobs:
   build:
 
@@ -26,7 +22,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
+        working-directory: ./var/www/staging
+    - run: npm ci
     - run: npm run build
     - run: |
         touch .env
